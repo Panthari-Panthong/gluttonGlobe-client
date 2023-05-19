@@ -4,15 +4,19 @@ import { Marker, Popup } from "react-leaflet";
 const MarkerComponent = ({ cities }) => {
   return (
     <div>
-      {cities.data.map((city) => {
-        return (
-          <Marker position={[city.lat, city.lng]} key={city._id}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        );
-      })}
+      {!cities ? (
+        <h1>Loading...</h1>
+      ) : (
+        cities.data.map((city) => {
+          return (
+            <Marker position={[city.lat, city.lng]} key={city._id}>
+              <Popup>
+                A pretty CSS3 popup. <br /> Easily customizable.
+              </Popup>
+            </Marker>
+          );
+        })
+      )}
     </div>
   );
 };
