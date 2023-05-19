@@ -5,6 +5,7 @@ import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import ProfilePage from "./pages/user/ProfilePage";
 import MyMapPage from "./pages/user/MyMapPage";
+import ProfileEditPage from "./pages/user/ProfileEditPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/:userId/edit" element={<ProfileEditPage />} />
         <Route path="/myMap" element={<MyMapPage />} />
       </Routes>
     </div>
