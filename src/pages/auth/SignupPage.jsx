@@ -12,6 +12,7 @@ const SignupPage = () => {
 
   const handleSignupSubmit = async (event) => {
     event.preventDefault();
+    // Create an object representing the request body
     const requestBody = { email, password, username };
 
     try {
@@ -23,9 +24,8 @@ const SignupPage = () => {
         requestBody
       );
 
-      console.log();
-
       if (response.status === 201) {
+        // navigate to the login page after the user has successfully signed up
         navigate("/login");
       }
     } catch (error) {

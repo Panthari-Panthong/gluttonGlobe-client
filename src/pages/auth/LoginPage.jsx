@@ -1,6 +1,7 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +9,9 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
+
+  // get authenticateUser from the context
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const handleLoginSubmit = async (event) => {
     event.preventDefault();
@@ -20,11 +24,24 @@ const LoginPage = () => {
       );
 
       if (response.status === 200) {
+        // console.log("JWT token", response.data.authToken);
+
+        // Save the token in the localStorage.
+        const data = await response.data;
+        storeToken(data.authToken);
+
+        // Verify the token by sending a request, stored in the browser
+        // to the server's JWT validation endpoint.
+        // updates the state variables isLoggedIn, user and isLoading
+        authenticateUser();
+
         navigate("/profile");
       }
     } catch (error) {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      if (!error) {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      }
     }
   };
 
