@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Marker, Popup } from "react-leaflet";
+import { Link } from "react-router-dom";
 
 const MarkerComponent = ({ cities }) => {
   return (
@@ -12,6 +13,8 @@ const MarkerComponent = ({ cities }) => {
             <Marker position={[city.lat, city.lng]} key={city._id}>
               <Popup>
                 A pretty CSS3 popup. <br /> Easily customizable.
+                {/* Solen */}
+                <Link to={`places/${city._id}`}>See more</Link>
               </Popup>
             </Marker>
           );
