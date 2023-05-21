@@ -1,35 +1,29 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "/src/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import MarkerComponent from "/src/components/MarkerComponent";
-
-/*const payloadUser = {
-  email: "test@app",
-  password: "1234",
-  username: "test",
-  picture: "",
-  placesBeen: ["6467864c5225b7b82a5bbc88"], // Tokyo
-  placesVisit: ["6467864c5225b7b82a5bbc89"], // Jarkata
-};*/
+import LayerComponent from "/src/components/LayerComponent";
 
 const MyMapPage = () => {
-  const [cities, setCities] = useState();
-  // Store User Data
+  /* --- Store data --- */
   const [userId, setUserId] = useState();
-  const [myPlaces, setMyPlaces] = useState({
-    myPlacesBeen: [],
-    myPlacesVisit: [],
+  const [allPlaces, setAllPlaces] = useState();
+  const [userPlaces, setUserPlaces] = useState({
+    placesBeen: [],
+    placesVisit: [],
   });
 
-  const fetchPlaceData = async () => {
+  /* --- Fetch data of all places --- */
+  const fetchAllPlaces = async () => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/places`
       );
       const data = await response.data;
-      setCities(data);
+      setAllPlaces(data);
+      //console.log("Data from fetching all places", data);
     } catch (error) {
       console.log(error);
     }
@@ -39,9 +33,9 @@ const MyMapPage = () => {
     localStorage.setItem("authToken", token);
   };
 
-  const fetchUserData = async () => {
+  /* --- Fetch userId from the user --- */
+  const fetchUserId = async () => {
     const storedToken = localStorage.getItem("authToken");
-
     if (storedToken) {
       try {
         const response = await axios.get(
@@ -50,27 +44,50 @@ const MyMapPage = () => {
         );
         const verifiedUser = await response.data;
         setUserId(verifiedUser._id);
-        // console.log("verifiedUser", verifiedUser._id);
-        // console.log("userId", userId);
+        // console.log(userId);
       } catch (error) {
-        console.log(error);
+        console.log("error from fetching userId", error);
+      }
+    }
+  };
+
+  /* --- Fetch saved places from the user --- */
+  const fetchUserPlaces = async () => {
+    if (userId) {
+      try {
+        const verifiedUserPlace = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/places/${userId}`
+        );
+        setUserPlaces({
+          placesBeen:
+            verifiedUserPlace.data.placesFromUser[0].placesBeenFromUser,
+          placesVisit:
+            verifiedUserPlace.data.placesFromUser[0].placesVisitFromUser,
+        });
+        //console.log("placesFromUser:", userPlaces);
+      } catch (error) {
+        console.log("error from fetching saved places from the user", error);
       }
     }
   };
 
   useEffect(() => {
-    fetchPlaceData();
+    fetchAllPlaces();
   }, []);
 
   useEffect(() => {
-    fetchUserData();
+    fetchUserId();
   }, [userId]);
+
+  useEffect(() => {
+    fetchUserPlaces();
+  }, [userPlaces]); // Have issue of infinie execution
 
   return (
     <div>
       <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
+        center={[40.7608, -111.891]}
+        zoom={8}
         scrollWheelZoom={false}
         className="leaflet-container"
       >
@@ -78,7 +95,7 @@ const MyMapPage = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MarkerComponent cities={cities} />
+        <LayerComponent allPlaces={allPlaces} userPlaces={userPlaces} />
       </MapContainer>
     </div>
   );
