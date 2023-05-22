@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-const PlaceEditPage = () => {
+const PlaceEditPage = ({ refreshPost, placeId }) => {
   const [comment, setComment] = useState("");
-  const { id } = useParams();
+
   const { user } = useContext(AuthContext);
 
   const createPost = async (event) => {
@@ -13,14 +12,14 @@ const PlaceEditPage = () => {
     const postToCreate = {
       user: user._id,
       comment,
-      place: id,
+      place: placeId,
     };
     const newPost = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/places/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/posts`,
       postToCreate
     );
     setComment("");
-    console.log(newPost);
+    refreshPost();
   };
 
   return (
