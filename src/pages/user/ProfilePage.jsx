@@ -40,7 +40,7 @@ const ProfilePage = () => {
       {userDetail && (
         <>
           <div>
-            <h2>Profile</h2>
+            <h2 className="text-center">Profile</h2>
             <div className="container py-5 h-100">
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-md-12 col-xl-4">
@@ -70,20 +70,9 @@ const ProfilePage = () => {
                 </div>
               </div>
             </div>
-
-            {/* ------- */}
-            {/* <img
-              src={userDetail.picture}
-              alt="user"
-              style={{ width: "100px" }}
-            />
-            <h4>Username : {userDetail.username}</h4>
-            <h4>Aboutme : {userDetail.about}</h4>
-            <Link to={`/profile/${userDetail._id}/edit`}>Edit Profile</Link> */}
-            {/* ------- */}
           </div>
           <hr />
-          <div>
+          <div className="container py-5">
             <h4>{"Place I've been."}</h4>
             <div className="d-flex flex-row bd-highlight mb-3 gap-2">
               {userDetail &&
@@ -92,9 +81,7 @@ const ProfilePage = () => {
                     <Card style={{ width: "18rem" }} key={place._id}>
                       <Card.Body>
                         <img
-                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso3
-                            .slice(0, -1)
-                            .toLowerCase()}.png`}
+                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
                         <Card.Title>{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
@@ -108,7 +95,7 @@ const ProfilePage = () => {
             </div>
           </div>
           <hr />
-          <div>
+          <div className="container py-5">
             <h4>{"Place I want to visit"}</h4>
             <div className="d-flex flex-row bd-highlight mb-3 gap-2">
               {userDetail &&
@@ -117,9 +104,7 @@ const ProfilePage = () => {
                     <Card style={{ width: "18rem" }} key={place._id}>
                       <Card.Body>
                         <img
-                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso3
-                            .slice(0, -1)
-                            .toLowerCase()}.png`}
+                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
                         <Card.Title>{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
