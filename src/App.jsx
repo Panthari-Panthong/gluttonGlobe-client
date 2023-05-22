@@ -5,6 +5,9 @@ import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
 import ProfilePage from "./pages/user/profilePage";
 import MyMapPage from "./pages/user/MyMapPage";
+
+import PlaceDetailPage from "./pages/place/PlaceDetailPage";
+
 import ProfileEditPage from "./pages/user/ProfileEditPage";
 
 // Custom Route Components
@@ -20,6 +23,7 @@ import IsPrivate from "./components/IsPrivate";
 
 // 404 page
 import ErrorPage from "./components/ErrorPage";
+
 
 function App() {
   return (
@@ -62,7 +66,11 @@ function App() {
           }
         />
         <Route path="/myMap" element={<MyMapPage />} />
+
+        <Route path="/places/:id" element={<PlaceDetailPage />} />
+
         <Route path="*" element={<ErrorPage />} />
+
       </Routes>
     </div>
   );
