@@ -14,7 +14,7 @@ const MarkerComponent = ({ cities }) => {
             <Marker position={[city.lat, city.lng]} key={city._id}>
               <Popup>
                 <Card
-                  style={{ width: "10rem" }}
+                  style={{ width: "12rem" }}
                   className="pt-4 card text-center"
                 >
                   <Card.Img
@@ -26,6 +26,12 @@ const MarkerComponent = ({ cities }) => {
                   <Card.Body>
                     <Card.Title>{city.city}</Card.Title>
                     <Card.Text>{city.country}</Card.Text>
+                    <ul className="list-group list-group-flush">
+                      <li className="list-group-item">Latitude : {city.lat}</li>
+                      <li className="list-group-item">
+                        Longitude : {city.lng}
+                      </li>
+                    </ul>
                     <Link
                       className="btn btn-outline-info btn-sm"
                       to={`places/${city._id}`}

@@ -6,8 +6,20 @@ import LoginPage from "./pages/auth/LoginPage";
 import ProfilePage from "./pages/user/profilePage";
 import MyMapPage from "./pages/user/MyMapPage";
 import ProfileEditPage from "./pages/user/ProfileEditPage";
+
+// Custom Route Components
+// Protect specific pages
+// Allow access only to authenticated users
 import IsAnon from "./components/IsAnon";
+// IsAnon
+// make certain pages available only to the users who are not logged in
+
 import IsPrivate from "./components/IsPrivate";
+// IsPrivate
+// private pages accessible only to the users who are logged in.
+
+// 404 page
+import ErrorPage from "./components/ErrorPage";
 
 function App() {
   return (
@@ -34,6 +46,8 @@ function App() {
         <Route
           path="/profile"
           element={
+            // check if the user is logged in or not
+            // access the content by props.children
             <IsPrivate>
               <ProfilePage />
             </IsPrivate>
@@ -48,6 +62,7 @@ function App() {
           }
         />
         <Route path="/myMap" element={<MyMapPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );
