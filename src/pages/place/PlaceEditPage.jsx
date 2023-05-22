@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const PlaceEditPage = () => {
   const [comment, setComment] = useState("");
-  const { place } = useParams();
+  const { id } = useParams();
   // const user found if logged in
   const user = "";
 
@@ -13,14 +13,16 @@ const PlaceEditPage = () => {
     const postToCreate = {
       user,
       comment,
-      place,
+      place: id,
     };
     const newPost = await axios.post(
-      `${import.meta.env.VITE_API_URL}/api/posts/new`,
+      `${import.meta.env.VITE_API_URL}/api/places/${id}`,
       postToCreate
     );
+    setComment("");
     console.log(newPost);
   };
+
   return (
     <div>
       <form onSubmit={createPost}>
@@ -34,6 +36,7 @@ const PlaceEditPage = () => {
             }}
           ></input>
         </label>
+        <button type="submit">Add</button>
       </form>
     </div>
   );
