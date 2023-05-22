@@ -45,6 +45,7 @@ const SignupPage = () => {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <label>Password:</label>
@@ -53,6 +54,7 @@ const SignupPage = () => {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <label>Username:</label>
@@ -61,6 +63,7 @@ const SignupPage = () => {
           name="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
 
         <button type="submit">Sign Up</button>
