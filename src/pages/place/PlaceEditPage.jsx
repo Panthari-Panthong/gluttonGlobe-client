@@ -1,17 +1,18 @@
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 const PlaceEditPage = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
   // const user found if logged in
-  const user = "";
+  const { user } = useContext(AuthContext);
 
   const createPost = async (event) => {
     event.preventDefault();
     const postToCreate = {
-      user,
+      user: user._id,
       comment,
       place: id,
     };

@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import PlaceEditPage from "./PlaceEditPage";
+import { AuthContext } from "../../context/AuthContext";
 
 const PlaceDetailPage = () => {
   const { id } = useParams();
@@ -27,18 +28,21 @@ const PlaceDetailPage = () => {
   }, [id]);
 
   // To display all comments/posts
-  const [posts, setPosts] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const { commentdata } = await axios.get(
-        `${import.meta.env.VITE_API_URL}/api/posts`
-      );
-      console.log(commentdata);
-      setPosts(commentdata);
-      console.log(posts);
-    };
-    fetchData();
-  }, []);
+  // const [posts, setPosts] = useState([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const { commentdata } = await axios.get(
+  //       `${import.meta.env.VITE_API_URL}/api/places/${id}`
+  //     );
+  //     console.log(commentdata);
+  //     setPosts(commentdata);
+  //     console.log(posts);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  // To be able to add a comment or not
+  const { isLoggedIn } = useContext(AuthContext);
 
   // To hide or show the edit comment component
   const [showHideEdit, setShowHideEdit] = useState(false);
@@ -55,9 +59,7 @@ const PlaceDetailPage = () => {
       <div>
         <div>
           <img
-            src={`https://flagpedia.net/data/flags/icon/72x54/${cityDetails.iso3
-              .slice(0, -1)
-              .toLowerCase()}.png`}
+            src={`https://flagpedia.net/data/flags/icon/72x54/${cityDetails.iso2.toLowerCase()}.png`}
           />
         </div>
         <div>
@@ -78,13 +80,14 @@ const PlaceDetailPage = () => {
         />
         <Marker position={[cityDetails.lat, cityDetails.lng]}></Marker>
       </MapContainer>
+
       <div>
         <h2>Comments</h2>
         {/* Display all comments */}
-        {!posts ? (
+        {cityDetails.post.length == 0 ? (
           <p>No comment yet to display...</p>
         ) : (
-          posts.map((onepost) => {
+          cityDetails.post.map((onepost) => {
             return (
               <div key={onepost._id}>
                 {/* <p>{onepost.user}</p> */}
@@ -93,15 +96,22 @@ const PlaceDetailPage = () => {
             );
           })
         )}
-        {/* Add a comment form */}
-        <button
-          onClick={() => {
-            toggle();
-          }}
-        >
-          Add a comment
-        </button>
-        {showHideEdit && <PlaceEditPage />}
+
+        {/* Show/Hide comment form */}
+        {isLoggedIn ? (
+          <Link to="/login">Log in now to add a comment</Link>
+        ) : (
+          <div>
+            <button
+              onClick={() => {
+                toggle();
+              }}
+            >
+              Add a comment
+            </button>
+            {showHideEdit && <PlaceEditPage />}
+          </div>
+        )}
       </div>
     </div>
   );
