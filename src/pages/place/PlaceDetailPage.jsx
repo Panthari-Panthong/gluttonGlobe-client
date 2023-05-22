@@ -27,20 +27,6 @@ const PlaceDetailPage = () => {
     getDetails();
   }, [id]);
 
-  // To display all comments/posts
-  // const [posts, setPosts] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const { commentdata } = await axios.get(
-  //       `${import.meta.env.VITE_API_URL}/api/places/${id}`
-  //     );
-  //     console.log(commentdata);
-  //     setPosts(commentdata);
-  //     console.log(posts);
-  //   };
-  //   fetchData();
-  // }, []);
-
   // To be able to add a comment or not
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -98,7 +84,7 @@ const PlaceDetailPage = () => {
         )}
 
         {/* Show/Hide comment form */}
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <Link to="/login">Log in now to add a comment</Link>
         ) : (
           <div>
