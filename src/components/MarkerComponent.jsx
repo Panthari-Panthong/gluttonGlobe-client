@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Marker, Popup } from "react-leaflet";
+import { Link } from "react-router-dom";
+import Card from "react-bootstrap/Card";
 
 const MarkerComponent = ({ cities }) => {
   return (
@@ -11,7 +13,27 @@ const MarkerComponent = ({ cities }) => {
           return (
             <Marker position={[city.lat, city.lng]} key={city._id}>
               <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                <Card
+                  style={{ width: "10rem" }}
+                  className="pt-4 card text-center"
+                >
+                  <Card.Img
+                    className="mx-auto d-block"
+                    variant="top"
+                    style={{ width: "3rem" }}
+                    src={`https://flagpedia.net/data/flags/icon/72x54/${city.iso2.toLowerCase()}.png`}
+                  />
+                  <Card.Body>
+                    <Card.Title>{city.city}</Card.Title>
+                    <Card.Text>{city.country}</Card.Text>
+                    <Link
+                      className="btn btn-outline-info btn-sm"
+                      to={`places/${city._id}`}
+                    >
+                      Detail
+                    </Link>
+                  </Card.Body>
+                </Card>
               </Popup>
             </Marker>
           );

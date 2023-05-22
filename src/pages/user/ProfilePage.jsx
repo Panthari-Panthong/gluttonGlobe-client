@@ -92,9 +92,7 @@ const ProfilePage = () => {
                     <Card style={{ width: "18rem" }} key={place._id}>
                       <Card.Body>
                         <img
-                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso3
-                            .slice(0, -1)
-                            .toLowerCase()}.png`}
+                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
                         <Card.Title>{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
@@ -117,9 +115,7 @@ const ProfilePage = () => {
                     <Card style={{ width: "18rem" }} key={place._id}>
                       <Card.Body>
                         <img
-                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso3
-                            .slice(0, -1)
-                            .toLowerCase()}.png`}
+                          src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
                         <Card.Title>{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
