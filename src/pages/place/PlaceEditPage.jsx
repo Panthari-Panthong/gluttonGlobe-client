@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 const PlaceEditPage = ({ refreshPost, placeId }) => {
   const [comment, setComment] = useState("");
-  // const user found if logged in
+
   const { user } = useContext(AuthContext);
 
   const createPost = async (event) => {

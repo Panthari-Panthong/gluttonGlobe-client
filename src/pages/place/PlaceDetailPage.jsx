@@ -26,6 +26,7 @@ const PlaceDetailPage = () => {
     getDetails();
   }, []);
 
+
   // To be able to add a comment or not
   const { isLoggedIn } = useContext(AuthContext);
 
