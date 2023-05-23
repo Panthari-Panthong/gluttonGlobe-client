@@ -56,6 +56,7 @@ const LoginPage = () => {
           name="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          required
         />
 
         <label>Password:</label>
@@ -64,6 +65,7 @@ const LoginPage = () => {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
 
         <button type="submit">Login</button>
