@@ -11,7 +11,7 @@ const Navbar = () => {
   //  Update the rendering logic to display different content
   //  depending on whether the user is logged in or not
   return (
-    <div>
+    <div className="navbar">
       {/* isLoggedIn is true : show the Profile and My Map Links and Logout. */}
       {/* {isLoggedIn && (
         <>
