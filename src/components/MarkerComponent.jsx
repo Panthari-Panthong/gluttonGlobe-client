@@ -6,7 +6,15 @@ import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import L from "leaflet";
 
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
 const default_radius = 3000;
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
 
 const MarkerComponent = ({ cities, setRadiusFilter, getRadiusFilter }) => {
   const [radius, setRadius] = useState(default_radius);
@@ -38,7 +46,11 @@ const MarkerComponent = ({ cities, setRadiusFilter, getRadiusFilter }) => {
           })
           .map((city) => {
             return (
-              <Marker position={[city.lat, city.lng]} key={city._id}>
+              <Marker
+                position={[city.lat, city.lng]}
+                key={city._id}
+                icon={DefaultIcon}
+              >
                 <Popup>
                   <Card
                     style={{ width: "12rem" }}
