@@ -3,11 +3,11 @@ import {
   LayersControl,
   MapContainer,
   TileLayer,
-  useMap,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "/src/App.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 import LayerComponent from "/src/components/LayerComponent";
 import LocationMarker from "/src/components/LocationMarker";
@@ -15,7 +15,7 @@ import L, { icon } from "leaflet";
 
 const MyMapPage = () => {
   /* --- Store data --- */
-  const [userId, setUserId] = useState();
+  const { user } = useContext(AuthContext);
   const [allPlaces, setAllPlaces] = useState({ data: [] });
   const [userPlacesBeen, setUserPlacesBeen] = useState({ data: [] });
   const [userPlacesVisit, setUserPlacesVisit] = useState({ data: [] });
@@ -65,30 +65,14 @@ const MyMapPage = () => {
     localStorage.setItem("authToken", token);
   };
 
-  /* --- Fetch userId from the user --- */
-  const fetchUserId = async () => {
-    const storedToken = localStorage.getItem("authToken");
-    if (storedToken) {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/auth/verify`,
-          { headers: { Authorization: `Bearer ${storedToken}` } }
-        );
-        const verifiedUser = await response.data;
-        setUserId(verifiedUser._id);
-        console.log(userId);
-      } catch (error) {
-        console.log("error from fetching userId", error);
-      }
-    }
-  };
-
   /* --- Fetch saved places from the user --- */
   const fetchUserPlaces = async () => {
-    if (userId) {
+    const storedToken = localStorage.getItem("authToken");
+    if (user) {
       try {
         const verifiedUserPlace = await axios.get(
-          `${import.meta.env.VITE_API_URL}/api/places/${userId}`
+          `${import.meta.env.VITE_API_URL}/api/mymap/${user._id}`,
+          { headers: { Authorization: `Bearer ${storedToken}` } }
         );
         setUserPlacesBeen({
           data: verifiedUserPlace.data.placesFromUser[0].placesBeenFromUser,
@@ -96,25 +80,49 @@ const MyMapPage = () => {
         setUserPlacesVisit({
           data: verifiedUserPlace.data.placesFromUser[0].placesVisitFromUser,
         });
-        // console.log("userPlacesBeen", userPlacesBeen);
-        // console.log("userPlacesVisit:", userPlacesVisit);
       } catch (error) {
         console.log("error from fetching saved places from the user", error);
       }
     }
   };
 
+  /* Add the place to user's placesBeen */
+  const handleUpdateBeen = async (place) => {
+    setUserPlacesBeen([...userPlacesBeen, place]);
+    try {
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/mymap/addtoBeen/${user._id}`,
+        {
+          placesBeen: place,
+        }
+      );
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /* Add the place to user's placesVisit */
+  const handleUpdateVisit = async (place) => {
+    setUserPlacesBeen([...userPlacesVisit, place]);
+    try {
+      console.log("Add to visit", place);
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/mymap/addtoVisit/${user._id}`,
+        {
+          placesVisit: place,
+        }
+      );
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchAllPlaces();
-  }, []);
-
-  useEffect(() => {
-    fetchUserId();
-  }, [userId]);
-
-  useEffect(() => {
     fetchUserPlaces();
-  }, [userId, userPlacesBeen, userPlacesVisit]); // Have issue of infinite execution
+  }, []);
 
   return (
     <div>
@@ -139,7 +147,8 @@ const MyMapPage = () => {
               <LayerComponent
                 places={userPlacesBeen}
                 icon={redIcon}
-                userId={userId}
+                handleUpdateBeen={handleUpdateBeen}
+                handleUpdateVisit={handleUpdateVisit}
               />
             </LayerGroup>
           </LayersControl.Overlay>
@@ -149,7 +158,8 @@ const MyMapPage = () => {
               <LayerComponent
                 places={userPlacesVisit}
                 icon={yellowIcon}
-                userId={userId}
+                handleUpdateBeen={handleUpdateBeen}
+                handleUpdateVisit={handleUpdateVisit}
               />
             </LayerGroup>
           </LayersControl.Overlay>
@@ -158,7 +168,8 @@ const MyMapPage = () => {
               <LayerComponent
                 places={allPlaces}
                 icon={blueIcon}
-                userId={userId}
+                handleUpdateBeen={handleUpdateBeen}
+                handleUpdateVisit={handleUpdateVisit}
               />
             </LayerGroup>
           </LayersControl.Overlay>
