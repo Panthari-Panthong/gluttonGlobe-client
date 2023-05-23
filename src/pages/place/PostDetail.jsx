@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Spinner from "react-bootstrap/esm/Spinner";
+import Image from "react-bootstrap/Image";
 
 const PostDetail = ({ ...onepost }) => {
   // Get information from the user who posted (username and profile pic)
@@ -16,7 +17,6 @@ const PostDetail = ({ ...onepost }) => {
       console.log(error);
     }
   };
-  console.log(foundUser);
 
   useEffect(() => {
     getUser();
@@ -29,9 +29,9 @@ const PostDetail = ({ ...onepost }) => {
           <span className="visually-hidden">Loading...</span>
         </Spinner>
       ) : (
-        <div>
-          <div>
-            {" "}
+        <div className="postDetail">
+          <div className="postUser">
+            <Image></Image>
             <img
               src={foundUser.data.picture}
               alt="User's profile pic"

@@ -45,7 +45,7 @@ const PlaceDetailPage = () => {
   }
 
   return (
-    <div>
+    <div className="placeDetail">
       <div>
         <div>
           <img
@@ -56,20 +56,20 @@ const PlaceDetailPage = () => {
           <h1>{cityDetails.city}</h1>
           <h2>{cityDetails.country}</h2>
         </div>
-      </div>
 
-      <MapContainer
-        center={[cityDetails.lat, cityDetails.lng]}
-        zoom={13}
-        scrollWheelZoom={false}
-        style={{ width: "20rem", height: "20rem" }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={[cityDetails.lat, cityDetails.lng]}></Marker>
-      </MapContainer>
+        <MapContainer
+          center={[cityDetails.lat, cityDetails.lng]}
+          zoom={13}
+          scrollWheelZoom={false}
+          style={{ width: "15rem", height: "10rem" }}
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={[cityDetails.lat, cityDetails.lng]}></Marker>
+        </MapContainer>
+      </div>
 
       <div>
         <h2>Comments</h2>
