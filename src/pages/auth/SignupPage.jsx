@@ -29,8 +29,10 @@ const SignupPage = () => {
         navigate("/login");
       }
     } catch (error) {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      if (!error) {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      }
     }
   };
 
