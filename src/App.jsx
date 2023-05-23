@@ -23,7 +23,7 @@ import IsPrivate from "./components/IsPrivate";
 
 // 404 page
 import ErrorPage from "./components/ErrorPage";
-
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -70,8 +70,8 @@ function App() {
         <Route path="/places/:id" element={<PlaceDetailPage />} />
 
         <Route path="*" element={<ErrorPage />} />
-
       </Routes>
+      <Footer />
     </div>
   );
 }

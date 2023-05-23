@@ -13,26 +13,21 @@ const Navbar = () => {
   return (
     <div>
       {/* isLoggedIn is true : show the Profile and My Map Links and Logout. */}
-      {/* {isLoggedIn && (
+      {isLoggedIn && (
         <>
           <Link to="/profile">My profile</Link>
           <Link to="/myMap">My Map</Link>
           <button onClick={logOutUser}>Logout</button>
         </>
-      )} */}
+      )}
 
       {/* isLoggedIn is false : show the Login and Sign Up Links */}
-      {/* {!isLoggedIn && (
+      {!isLoggedIn && (
         <>
           <Link to="/signup">Sign Up</Link>
           <Link to="/login">Login</Link>
         </>
-      )} */}
-      <Link to="/signup">Sign Up</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/profile">My profile</Link>
-      <Link to="/myMap">My Map</Link>
-      <button onClick={logOutUser}>Logout</button>
+      )}
     </div>
   );
 };
