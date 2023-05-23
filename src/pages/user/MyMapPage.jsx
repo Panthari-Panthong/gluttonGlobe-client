@@ -20,6 +20,7 @@ const MyMapPage = () => {
   const [userPlacesBeen, setUserPlacesBeen] = useState({ data: [] });
   const [userPlacesVisit, setUserPlacesVisit] = useState({ data: [] });
   const [position, setPosition] = useState(null);
+  console.log(userPlacesBeen.data);
 
   /* --- Create the Icons --- */
   const LeafIcon = L.Icon.extend({
@@ -88,7 +89,7 @@ const MyMapPage = () => {
 
   /* Add the place to user's placesBeen */
   const handleUpdateBeen = async (place) => {
-    setUserPlacesBeen([...userPlacesBeen, place]);
+    setUserPlacesBeen({ data: [...userPlacesBeen.data, place] });
     try {
       const response = await axios.patch(
         `${import.meta.env.VITE_API_URL}/api/mymap/addtoBeen/${user._id}`,
@@ -104,7 +105,7 @@ const MyMapPage = () => {
 
   /* Add the place to user's placesVisit */
   const handleUpdateVisit = async (place) => {
-    setUserPlacesBeen([...userPlacesVisit, place]);
+    setUserPlacesVisit({ data: [...userPlacesVisit.data, place] });
     try {
       console.log("Add to visit", place);
       const response = await axios.patch(
