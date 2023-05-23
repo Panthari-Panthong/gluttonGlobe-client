@@ -1,18 +1,49 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  LayerGroup,
+  LayersControl,
+  MapContainer,
+  TileLayer,
+  useMap,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import "/src/App.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import MarkerComponent from "/src/components/MarkerComponent";
 import LayerComponent from "/src/components/LayerComponent";
+import LocationMarker from "/src/components/LocationMarker";
+import L, { icon } from "leaflet";
 
 const MyMapPage = () => {
   /* --- Store data --- */
   const [userId, setUserId] = useState();
-  const [allPlaces, setAllPlaces] = useState();
-  const [userPlaces, setUserPlaces] = useState({
-    placesBeen: [],
-    placesVisit: [],
+  const [allPlaces, setAllPlaces] = useState({ data: [] });
+  const [userPlacesBeen, setUserPlacesBeen] = useState({ data: [] });
+  const [userPlacesVisit, setUserPlacesVisit] = useState({ data: [] });
+  const [position, setPosition] = useState(null);
+
+  /* --- Create the Icons --- */
+  const LeafIcon = L.Icon.extend({
+    options: {
+      iconSize: [40, 40],
+      shadowSize: [100, 100],
+      shadowAnchor: [14, 62],
+    },
+  });
+
+  const greenIcon = new LeafIcon({
+    iconUrl: "/src/assets/pin-con/pin-green.png",
+  });
+
+  const blueIcon = new LeafIcon({
+    iconUrl: "/src/assets/pin-con/pin-blue.png",
+  });
+
+  const yellowIcon = new LeafIcon({
+    iconUrl: "/src/assets/pin-con/pin-yellow.png",
+  });
+
+  const redIcon = new LeafIcon({
+    iconUrl: "/src/assets/pin-con/pin-red.png",
   });
 
   /* --- Fetch data of all places --- */
@@ -21,9 +52,10 @@ const MyMapPage = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/places`
       );
+      //console.log(response);
       const data = await response.data;
       setAllPlaces(data);
-      //console.log("Data from fetching all places", data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +76,7 @@ const MyMapPage = () => {
         );
         const verifiedUser = await response.data;
         setUserId(verifiedUser._id);
-        // console.log(userId);
+        console.log(userId);
       } catch (error) {
         console.log("error from fetching userId", error);
       }
@@ -58,13 +90,14 @@ const MyMapPage = () => {
         const verifiedUserPlace = await axios.get(
           `${import.meta.env.VITE_API_URL}/api/places/${userId}`
         );
-        setUserPlaces({
-          placesBeen:
-            verifiedUserPlace.data.placesFromUser[0].placesBeenFromUser,
-          placesVisit:
-            verifiedUserPlace.data.placesFromUser[0].placesVisitFromUser,
+        setUserPlacesBeen({
+          data: verifiedUserPlace.data.placesFromUser[0].placesBeenFromUser,
         });
-        //console.log("placesFromUser:", userPlaces);
+        setUserPlacesVisit({
+          data: verifiedUserPlace.data.placesFromUser[0].placesVisitFromUser,
+        });
+        // console.log("userPlacesBeen", userPlacesBeen);
+        // console.log("userPlacesVisit:", userPlacesVisit);
       } catch (error) {
         console.log("error from fetching saved places from the user", error);
       }
@@ -81,13 +114,13 @@ const MyMapPage = () => {
 
   useEffect(() => {
     fetchUserPlaces();
-  }, [userPlaces]); // Have issue of infinie execution
+  }, [userId, userPlacesBeen, userPlacesVisit]); // Have issue of infinite execution
 
   return (
     <div>
       <MapContainer
-        center={[40.7608, -111.891]}
-        zoom={8}
+        center={[51.505, -0.09]}
+        zoom={10}
         scrollWheelZoom={false}
         className="leaflet-container"
       >
@@ -95,7 +128,41 @@ const MyMapPage = () => {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <LayerComponent allPlaces={allPlaces} userPlaces={userPlaces} />
+        <LocationMarker
+          icon={greenIcon}
+          position={position}
+          setPosition={setPosition}
+        />
+        <LayersControl position="topright">
+          <LayersControl.Overlay name={"Places have been"}>
+            <LayerGroup>
+              <LayerComponent
+                places={userPlacesBeen}
+                icon={redIcon}
+                userId={userId}
+              />
+            </LayerGroup>
+          </LayersControl.Overlay>
+
+          <LayersControl.Overlay name={"Places want to go"}>
+            <LayerGroup>
+              <LayerComponent
+                places={userPlacesVisit}
+                icon={yellowIcon}
+                userId={userId}
+              />
+            </LayerGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name={"All Places"}>
+            <LayerGroup>
+              <LayerComponent
+                places={allPlaces}
+                icon={blueIcon}
+                userId={userId}
+              />
+            </LayerGroup>
+          </LayersControl.Overlay>
+        </LayersControl>
       </MapContainer>
     </div>
   );

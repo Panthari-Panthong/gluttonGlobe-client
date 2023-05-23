@@ -1,149 +1,70 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
-import { Marker, Popup, LayersControl, LayerGroup } from "react-leaflet";
-import L from "leaflet";
+import { LayerGroup, LayersControl, Marker, Popup } from "react-leaflet";
+import { icon } from "leaflet";
+import axios from "axios";
 
-const LayerComponent = ({ allPlaces, userPlaces }) => {
-  const [placesBeen, setPlacesBeen] = useState(userPlaces.placesBeen);
-  const [placesVisit, setPlacesVisit] = useState(userPlaces.placesVisit);
-
-  // Create the Icon
-  const LeafIcon = L.Icon.extend({
-    options: {
-      iconSize: [50, 50],
-      shadowSize: [100, 100],
-      shadowAnchor: [14, 62],
-    },
-  });
-
-  const blueIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-blue.png",
-  });
-
-  const yellowIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-yellow.png",
-  });
-
-  const redIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-red.png",
-  });
-
-  //  Use the state hook:
-  const [icon, setIcon] = useState(blueIcon);
-
-  // This function will change the state's icon:
-  const addBeen = (icon) => {
-    if (icon.options.iconUrl === yellowIcon.options.iconUrl) {
-      setIcon((current) => (current = blueIcon));
-    } else {
-      setIcon((current) => (current = redIcon));
+const LayerComponent = ({ places, icon, userId }) => {
+  /* Add the place to user's placesBeen */
+  const handleUpdateBeen = async (place) => {
+    console.log("userId", userId);
+    try {
+      console.log("Add to been", place);
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/places/addtoBeen/${userId}`,
+        {
+          placesBeen: place,
+        }
+      );
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error(error);
     }
   };
 
-  // This function will change the state's icon:
-  const addVisit = (icon) => {
-    if (icon.options.iconUrl === yellowIcon.options.iconUrl) {
-      setIcon((current) => (current = blueIcon));
-    } else {
-      setIcon((current) => (current = yellowIcon));
+  /* Add the place to user's placesVisit */
+  const handleUpdateVisit = async (place) => {
+    console.log("userId", userId);
+    try {
+      console.log("Add to visit", place);
+      const response = await axios.patch(
+        `${import.meta.env.VITE_API_URL}/api/places/addtoVisit/${userId}`,
+        {
+          placesVisit: place,
+        }
+      );
+      console.log(response.data); // Log the response from the server
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <>
-      <LayersControl position="topright">
-        {/* All places */}
-        <LayersControl.Overlay name="All places">
-          <LayerGroup>
-            {!allPlaces ? (
-              <h1>Loading...</h1>
-            ) : (
-              allPlaces.data.map((place) => {
-                return (
-                  <Marker position={[place.lat, place.lng]} key={place._id}>
-                    <Popup>
-                      <h3>{place.city}</h3>
-                      <button onClick={() => addBeen(icon)}>Been there</button>
-                      <button onClick={() => addVisit(icon)}>
-                        Want to visit
-                      </button>
-                    </Popup>
-                  </Marker>
-                );
-              })
-            )}
-          </LayerGroup>
-        </LayersControl.Overlay>
-        {/* Places I have been to */}
-        <LayersControl.Overlay name="Places I have been to">
-          <LayerGroup>
-            {!placesBeen ? (
-              <h1>Loading...</h1>
-            ) : (
-              placesBeen.map((place) => {
-                return (
-                  <Marker position={[place.lat, place.lng]} key={place._id}>
-                    <Popup>
-                      <h3>{place.city}</h3>
-                      <button onClick={() => addVisit(icon)}>
-                        Want to visit
-                      </button>
-                    </Popup>
-                  </Marker>
-                );
-              })
-            )}
-          </LayerGroup>
-        </LayersControl.Overlay>
-        {/* Places I want to go */}
-        <LayersControl.Overlay name="Places I want to visit">
-          <LayerGroup>
-            {!placesVisit ? (
-              <h1>Loading...</h1>
-            ) : (
-              placesVisit.map((place) => {
-                return (
-                  <Marker position={[place.lat, place.lng]} key={place._id}>
-                    <Popup>
-                      <h3>{place.city}</h3>
-                      <button onClick={() => addVisit(icon)}>
-                        Want to visit
-                      </button>
-                    </Popup>
-                  </Marker>
-                );
-              })
-            )}
-          </LayerGroup>
-        </LayersControl.Overlay>
-      </LayersControl>
-      {/* <Marker position={[40.7608, -111.891]} icon={icon}>
-        <Popup>
-          <h1>Salt lake City</h1>
-          <button onClick={() => addBeen(icon)}>Been there</button>
-          <button onClick={() => addVisit(icon)}>Want to visit</button>
-        </Popup>
-      </Marker> */}
-    </>
-  );
-};
-
-export default LayerComponent;
-
-/*
-<div>
-      {!cities ? (
+    <div>
+      {!places ? (
         <h1>Loading...</h1>
       ) : (
-        cities.data.map((city) => {
+        places.data.map((place) => {
           return (
-            <Marker position={[city.lat, city.lng]} key={city._id}>
+            <Marker
+              position={[place.lat, place.lng]}
+              icon={icon}
+              key={place._id}
+            >
               <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                <h3>{place.city}</h3>
+                <button onClick={() => handleUpdateBeen(place)}>
+                  Been there
+                </button>
+                <button onClick={() => handleUpdateVisit(place)}>
+                  Want to visit
+                </button>
               </Popup>
             </Marker>
           );
         })
       )}
     </div>
-*/
+  );
+};
+
+export default LayerComponent;
