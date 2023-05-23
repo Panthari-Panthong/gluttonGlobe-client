@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import PlaceEditPage from "./PlaceEditPage";
 import { AuthContext } from "../../context/AuthContext";
 import PostDetail from "./PostDetail";
+import Spinner from "react-bootstrap/esm/Spinner";
 
 const PlaceDetailPage = () => {
   const { id } = useParams();
@@ -26,7 +27,6 @@ const PlaceDetailPage = () => {
     getDetails();
   }, []);
 
-
   // To be able to add a comment or not
   const { isLoggedIn } = useContext(AuthContext);
 
@@ -37,7 +37,11 @@ const PlaceDetailPage = () => {
   }
 
   if (!cityDetails) {
-    return <div>Loading...</div>;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    );
   }
 
   return (
@@ -81,11 +85,14 @@ const PlaceDetailPage = () => {
         ) : (
           <div>
             <button
+              className="btn btn-outline-dark"
+              data-mdb-ripple-color="dark"
+              style={{ zIndex: "1" }}
               onClick={() => {
                 toggle();
               }}
             >
-              Add a comment
+              +
             </button>
             {showHideEdit && (
               <PlaceEditPage refreshPost={getDetails} placeId={id} />

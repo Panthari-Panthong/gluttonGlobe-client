@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -18,6 +19,7 @@ const PlaceEditPage = ({ refreshPost, placeId }) => {
       `${import.meta.env.VITE_API_URL}/api/posts`,
       postToCreate
     );
+    console.log(newPost);
     setComment("");
     refreshPost();
   };

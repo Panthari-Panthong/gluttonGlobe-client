@@ -1,8 +1,48 @@
-const PostDetail = ({ comment }) => {
-  console.log(comment);
+import axios from "axios";
+import { useEffect, useState } from "react";
+import Spinner from "react-bootstrap/esm/Spinner";
+
+const PostDetail = ({ ...onepost }) => {
+  // Get information from the user who posted (username and profile pic)
+  const [foundUser, setFoundUser] = useState(null);
+
+  const getUser = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/users/${onepost.user}`
+      );
+      setFoundUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  console.log(foundUser);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
   return (
     <div>
-      <h1>{comment}</h1>
+      {!foundUser ? (
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      ) : (
+        <div>
+          <div>
+            {" "}
+            <img
+              src={foundUser.data.picture}
+              alt="User's profile pic"
+              style={{ width: "50px" }}
+            ></img>
+            <p>{foundUser.data.username}</p>
+          </div>
+
+          <p>{onepost.comment}</p>
+        </div>
+      )}
     </div>
   );
 };
