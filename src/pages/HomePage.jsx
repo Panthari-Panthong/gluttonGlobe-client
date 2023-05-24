@@ -34,7 +34,7 @@ const HomePage = () => {
         zoom={5}
         scrollWheelZoom={false}
         className="leaflet-container"
-        style={{ width: "100%", height: "80vh" }}
+        style={{ width: "100%", height: "75vh" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
