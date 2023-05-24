@@ -65,7 +65,6 @@ const LoginPage = () => {
                 placeholder="Email"
               />
             </div>
-
             <div className="login__field">
               <FontAwesomeIcon icon={faLock} className="login_icon" />
               <input

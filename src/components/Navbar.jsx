@@ -36,7 +36,7 @@ const NavbarComponent = () => {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Close
+                  GluttonGlobe
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
