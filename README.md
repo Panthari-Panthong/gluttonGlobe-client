@@ -153,9 +153,7 @@ Post model
 | PATCH       | `/api/mymap/addtoBeen/:userId`  | { placesBeen }                | 200            |              | update placesBeen saved by the user                                                                                             |
 | PATCH       | `/api/mymap/addtoVisit/:userId` | { placesVisit }               | 200            |              | update placesVisit saved by the user                                                                                            |
 | GET         | `/api/places/:id`               |                               | 200            |              | Show city with posts                                                                                                            |
-| POST        | `/api/places/:id`               | { comment }                   |                |              | Add post to the city                                                                                                            |
 | POST        | `/api/posts`                    | { comment }                   |                |              | Add post to the city                                                                                                            |
-| GET         | `/api/users`                    |                               |                |              | Show users details                                                                                                              |
 | GET         | `/api/users/:id`                |                               |                |              | Show users picture, username, comment                                                                                           |
 
 ## Links
