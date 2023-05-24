@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import SignupPage from "./pages/auth/SignupPage";
 import LoginPage from "./pages/auth/LoginPage";
-import ProfilePage from "./pages/user/profilePage";
+import ProfilePage from "./pages/user/ProfilePage";
 import MyMapPage from "./pages/user/MyMapPage";
 
 import PlaceDetailPage from "./pages/place/PlaceDetailPage";
@@ -65,7 +65,15 @@ function App() {
             </IsPrivate>
           }
         />
-        <Route path="/myMap" element={<MyMapPage />} />
+
+        <Route
+          path="/myMap"
+          element={
+            <IsPrivate>
+              <MyMapPage />
+            </IsPrivate>
+          }
+        />
 
         <Route path="/places/:id" element={<PlaceDetailPage />} />
 

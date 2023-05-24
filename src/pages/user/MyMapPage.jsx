@@ -12,6 +12,10 @@ import axios from "axios";
 import LayerComponent from "/src/components/LayerComponent";
 import LocationMarker from "/src/components/LocationMarker";
 import L, { icon } from "leaflet";
+import pinGreen from "../../assets/pin-con/pin-green.png";
+import pinBlue from "../../assets/pin-con/pin-blue.png";
+import pinRed from "../../assets/pin-con/pin-red.png";
+import pinYellow from "../../assets/pin-con/pin-yellow.png";
 
 const MyMapPage = () => {
   /* --- Store data --- */
@@ -20,7 +24,7 @@ const MyMapPage = () => {
   const [userPlacesBeen, setUserPlacesBeen] = useState({ data: [] });
   const [userPlacesVisit, setUserPlacesVisit] = useState({ data: [] });
   const [position, setPosition] = useState(null);
-  console.log(userPlacesBeen.data);
+  const [errorMessage, setErrorMessage] = useState("");
 
   /* --- Create the Icons --- */
   const LeafIcon = L.Icon.extend({
@@ -32,19 +36,19 @@ const MyMapPage = () => {
   });
 
   const greenIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-green.png",
+    iconUrl: pinGreen,
   });
 
   const blueIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-blue.png",
+    iconUrl: pinBlue,
   });
 
   const yellowIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-yellow.png",
+    iconUrl: pinYellow,
   });
 
   const redIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-red.png",
+    iconUrl: pinRed,
   });
 
   /* --- Fetch data of all places --- */
@@ -53,10 +57,8 @@ const MyMapPage = () => {
       const response = await axios.get(
         `${import.meta.env.VITE_API_URL}/api/places`
       );
-      //console.log(response);
       const data = await response.data;
       setAllPlaces(data);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -87,36 +89,87 @@ const MyMapPage = () => {
     }
   };
 
-  /* Add the place to user's placesBeen */
-  const handleUpdateBeen = async (place) => {
-    setUserPlacesBeen({ data: [...userPlacesBeen.data, place] });
-    try {
-      const response = await axios.patch(
-        `${import.meta.env.VITE_API_URL}/api/mymap/addtoBeen/${user._id}`,
-        {
-          placesBeen: place,
-        }
-      );
-      console.log(response.data); // Log the response from the server
-    } catch (error) {
-      console.error(error);
+  /* --- Add the place to user's placesBeen --- */
+  const handleAddBeen = async (place) => {
+    if (!userPlacesBeen.data.includes(place)) {
+      setUserPlacesBeen({ data: [...userPlacesBeen.data, place] });
+      try {
+        await axios.patch(
+          `${import.meta.env.VITE_API_URL}/api/mymap/addtoBeen/${user._id}`,
+          {
+            placesBeen: place,
+          }
+        );
+      } catch (error) {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      }
     }
   };
 
-  /* Add the place to user's placesVisit */
-  const handleUpdateVisit = async (place) => {
-    setUserPlacesVisit({ data: [...userPlacesVisit.data, place] });
+  /* --- Add the place to user's placesVisit --- */
+  const handleAddVisit = async (place) => {
+    if (!userPlacesVisit.data.includes(place)) {
+      setUserPlacesVisit({ data: [...userPlacesVisit.data, place] });
+      try {
+        await axios.patch(
+          `${import.meta.env.VITE_API_URL}/api/mymap/addtoVisit/${user._id}`,
+          {
+            placesVisit: place,
+          }
+        );
+      } catch (error) {
+        const errorDescription = error.response.data.message;
+        setErrorMessage(errorDescription);
+      }
+    }
+  };
+
+  /* --- Update user's placesBeen ---*/
+  // If the place has been added to placesBeen + now moving to placesVisit
+  // Then remove it from placesBeen
+  const handleUpdateBeen = async (place) => {
+    // Update User's information in frontend
+    if (userPlacesBeen.data.includes(place)) {
+      const index = userPlacesBeen.data.indexOf(place);
+      const removePlacesBeen = userPlacesBeen.data.splice(index, 1);
+      setUserPlacesBeen(userPlacesBeen);
+    }
+    // Update User's information in backend
     try {
-      console.log("Add to visit", place);
-      const response = await axios.patch(
-        `${import.meta.env.VITE_API_URL}/api/mymap/addtoVisit/${user._id}`,
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/mymap/updateBeen/${user._id}`,
         {
-          placesVisit: place,
+          newPlacesBeen: place,
         }
       );
-      console.log(response.data); // Log the response from the server
     } catch (error) {
-      console.error(error);
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
+    }
+  };
+
+  /* --- Update user's placesVisit ---*/
+  // If the place has been added to placesVisit + now moving to placesBeen
+  // Then remove it from placesVisit
+  const handleUpdateVisit = async (place) => {
+    // Update User's information in frontend
+    if (userPlacesVisit.data.includes(place)) {
+      const index = userPlacesVisit.data.indexOf(place);
+      const removePlacesVisit = userPlacesVisit.data.splice(index, 1);
+      setUserPlacesVisit(userPlacesVisit);
+    }
+    // Update User's information in backend
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/api/mymap/updateVisit/${user._id}`,
+        {
+          newPlacesVisit: place,
+        }
+      );
+    } catch (error) {
+      const errorDescription = error.response.data.message;
+      setErrorMessage(errorDescription);
     }
   };
 
@@ -142,12 +195,14 @@ const MyMapPage = () => {
           position={position}
           setPosition={setPosition}
         />
-        <LayersControl position="topright">
+        <LayersControl position="topright" collapsed={false}>
           <LayersControl.Overlay name={"Places have been"}>
             <LayerGroup>
               <LayerComponent
                 places={userPlacesBeen}
                 icon={redIcon}
+                handleAddBeen={handleAddBeen}
+                handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
               />
@@ -159,16 +214,20 @@ const MyMapPage = () => {
               <LayerComponent
                 places={userPlacesVisit}
                 icon={yellowIcon}
+                handleAddBeen={handleAddBeen}
+                handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
               />
             </LayerGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name={"All Places"}>
+          <LayersControl.Overlay name={"All Places"} checked>
             <LayerGroup>
               <LayerComponent
                 places={allPlaces}
                 icon={blueIcon}
+                handleAddBeen={handleAddBeen}
+                handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
               />

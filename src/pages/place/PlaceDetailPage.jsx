@@ -6,6 +6,15 @@ import PlaceEditPage from "./PlaceEditPage";
 import { AuthContext } from "../../context/AuthContext";
 import PostDetail from "./PostDetail";
 import Spinner from "react-bootstrap/esm/Spinner";
+import L from "leaflet";
+
+import icon from "leaflet/dist/images/marker-icon.png";
+import iconShadow from "leaflet/dist/images/marker-shadow.png";
+
+let DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
 
 const PlaceDetailPage = () => {
   const { id } = useParams();
@@ -67,7 +76,10 @@ const PlaceDetailPage = () => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[cityDetails.lat, cityDetails.lng]}></Marker>
+          <Marker
+            position={[cityDetails.lat, cityDetails.lng]}
+            icon={DefaultIcon}
+          ></Marker>
         </MapContainer>
       </div>
 
