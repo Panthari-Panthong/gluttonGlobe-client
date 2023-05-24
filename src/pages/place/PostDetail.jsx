@@ -11,8 +11,6 @@ const PostDetail = ({ refreshPost, ...onepost }) => {
   const [foundUser, setFoundUser] = useState(null);
   const { user } = useContext(AuthContext);
 
-  console.log(user);
-
   const getUser = async () => {
     try {
       const response = await axios.get(
