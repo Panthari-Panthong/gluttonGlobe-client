@@ -28,12 +28,13 @@ const HomePage = () => {
     fetchData();
   }, []);
   return (
-    <div>
+    <div className="homePage">
       <MapContainer
         center={[51.505, -0.09]}
         zoom={5}
         scrollWheelZoom={false}
         className="leaflet-container"
+        style={{ width: "100%", height: "80vh" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
