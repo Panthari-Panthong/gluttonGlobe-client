@@ -19,7 +19,6 @@ const PlaceEditPage = ({ refreshPost, placeId }) => {
       `${import.meta.env.VITE_API_URL}/api/posts`,
       postToCreate
     );
-    console.log(newPost);
     setComment("");
     refreshPost();
   };

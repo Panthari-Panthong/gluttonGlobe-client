@@ -1,12 +1,17 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 import { icon } from "leaflet";
+import { v4 as uuidv4 } from "uuid"; // for test
 
 const LayerComponent = ({
   places,
   icon,
+  handleAddBeen,
+  handleAddVisit,
   handleUpdateBeen,
   handleUpdateVisit,
+  // handleRemovePlace,
 }) => {
   return (
     <div>
@@ -18,16 +23,34 @@ const LayerComponent = ({
             <Marker
               position={[place.lat, place.lng]}
               icon={icon}
-              key={place._id}
+              key={uuidv4()}
             >
-              <Popup>
+              <Popup autoClose={false}>
                 <h3>{place.city}</h3>
-                <button onClick={() => handleUpdateBeen(place)}>
+                <button
+                  onClick={() => {
+                    handleAddBeen(place);
+                    handleUpdateVisit(place);
+                  }}
+                >
                   Been there
                 </button>
-                <button onClick={() => handleUpdateVisit(place)}>
+                <button
+                  onClick={() => {
+                    handleAddVisit(place);
+                    handleUpdateBeen(place);
+                  }}
+                >
                   Want to visit
                 </button>
+                {/* <button
+                  onClick={() => {
+                    handleRemovePlace(place);
+                  }}
+                >
+                  Remove from my list
+                </button> */}
+                <Link to={`/places/${place._id}`}>Detail</Link>
               </Popup>
             </Marker>
           );
