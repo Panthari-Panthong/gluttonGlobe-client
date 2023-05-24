@@ -24,7 +24,7 @@ const MyMapPage = () => {
   const [userPlacesBeen, setUserPlacesBeen] = useState({ data: [] });
   const [userPlacesVisit, setUserPlacesVisit] = useState({ data: [] });
   const [position, setPosition] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  //const [errorMessage, setErrorMessage] = useState("");
 
   /* --- Create the Icons --- */
   const LeafIcon = L.Icon.extend({
@@ -64,9 +64,9 @@ const MyMapPage = () => {
     }
   };
 
-  const storeToken = (token) => {
-    localStorage.setItem("authToken", token);
-  };
+  // const storeToken = (token) => {
+  //   localStorage.setItem("authToken", token);
+  // };
 
   /* --- Fetch saved places from the user --- */
   const fetchUserPlaces = async () => {
@@ -91,6 +91,8 @@ const MyMapPage = () => {
 
   /* --- Add the place to user's placesBeen --- */
   const handleAddBeen = async (place) => {
+    const storedToken = localStorage.getItem("authToken");
+    // console.log(storedToken);
     if (!userPlacesBeen.data.includes(place)) {
       setUserPlacesBeen({ data: [...userPlacesBeen.data, place] });
       try {
@@ -98,17 +100,18 @@ const MyMapPage = () => {
           `${import.meta.env.VITE_API_URL}/api/mymap/addtoBeen/${user._id}`,
           {
             placesBeen: place,
-          }
+          },
+          { headers: { Authorization: `Bearer ${storedToken}` } }
         );
       } catch (error) {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        console.log(error);
       }
     }
   };
 
   /* --- Add the place to user's placesVisit --- */
   const handleAddVisit = async (place) => {
+    const storedToken = localStorage.getItem("authToken");
     if (!userPlacesVisit.data.includes(place)) {
       setUserPlacesVisit({ data: [...userPlacesVisit.data, place] });
       try {
@@ -116,11 +119,11 @@ const MyMapPage = () => {
           `${import.meta.env.VITE_API_URL}/api/mymap/addtoVisit/${user._id}`,
           {
             placesVisit: place,
-          }
+          },
+          { headers: { Authorization: `Bearer ${storedToken}` } }
         );
       } catch (error) {
-        const errorDescription = error.response.data.message;
-        setErrorMessage(errorDescription);
+        console.log(error);
       }
     }
   };
@@ -129,6 +132,7 @@ const MyMapPage = () => {
   // If the place has been added to placesBeen + now moving to placesVisit
   // Then remove it from placesBeen
   const handleUpdateBeen = async (place) => {
+    const storedToken = localStorage.getItem("authToken");
     // Update User's information in frontend
     if (userPlacesBeen.data.includes(place)) {
       const index = userPlacesBeen.data.indexOf(place);
@@ -141,11 +145,11 @@ const MyMapPage = () => {
         `${import.meta.env.VITE_API_URL}/api/mymap/updateBeen/${user._id}`,
         {
           newPlacesBeen: place,
-        }
+        },
+        { headers: { Authorization: `Bearer ${storedToken}` } }
       );
     } catch (error) {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      console.log(error);
     }
   };
 
@@ -153,6 +157,7 @@ const MyMapPage = () => {
   // If the place has been added to placesVisit + now moving to placesBeen
   // Then remove it from placesVisit
   const handleUpdateVisit = async (place) => {
+    const storedToken = localStorage.getItem("authToken");
     // Update User's information in frontend
     if (userPlacesVisit.data.includes(place)) {
       const index = userPlacesVisit.data.indexOf(place);
@@ -165,13 +170,40 @@ const MyMapPage = () => {
         `${import.meta.env.VITE_API_URL}/api/mymap/updateVisit/${user._id}`,
         {
           newPlacesVisit: place,
-        }
+        },
+        { headers: { Authorization: `Bearer ${storedToken}` } }
       );
     } catch (error) {
-      const errorDescription = error.response.data.message;
-      setErrorMessage(errorDescription);
+      console.log(error);
     }
   };
+
+  /* --- Remove the place from user's list--- */
+  // const handleRemovePlace = async (place) => {
+  //   const storedToken = localStorage.getItem("authToken");
+  //   // Update User's information in frontend
+  //   if (userPlacesBeen.data.includes(place)) {
+  //     const indexBeen = userPlacesBeen.data.indexOf(place);
+  //     const removePlacesBeen = userPlacesBeen.data.splice(indexBeen, 1);
+  //     // setUserPlacesBeen(userPlacesBeen);
+  //   }
+  //   if (userPlacesVisit.data.includes(place)) {
+  //     const indexVisit = userPlacesVisit.data.indexOf(place);
+  //     const removePlacesVisit = userPlacesVisit.data.splice(indexVisit, 1);
+  //     // setUserPlacesVisit(userPlacesVisit);
+  //   }
+  //   try {
+  //     const response = await axios.put(
+  //       `${import.meta.env.VITE_API_URL}/api/mymap/removePlace/${user._id}`,
+  //       {
+  //         placeToRemove: place,
+  //       },
+  //       { headers: { Authorization: `Bearer ${storedToken}` } }
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   useEffect(() => {
     fetchAllPlaces();
@@ -205,6 +237,7 @@ const MyMapPage = () => {
                 handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
+                // handleRemovePlace={handleRemovePlace}
               />
             </LayerGroup>
           </LayersControl.Overlay>
@@ -218,6 +251,7 @@ const MyMapPage = () => {
                 handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
+                // handleRemovePlace={handleRemovePlace}
               />
             </LayerGroup>
           </LayersControl.Overlay>
@@ -230,6 +264,7 @@ const MyMapPage = () => {
                 handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}
                 handleUpdateVisit={handleUpdateVisit}
+                // handleRemovePlace={handleRemovePlace}
               />
             </LayerGroup>
           </LayersControl.Overlay>
