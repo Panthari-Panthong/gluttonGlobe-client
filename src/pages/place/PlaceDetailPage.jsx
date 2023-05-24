@@ -76,7 +76,11 @@ const PlaceDetailPage = () => {
         {/* Display all comments */}
         {cityDetails &&
           cityDetails.post.map((onepost) => (
-            <PostDetail key={onepost._id} {...onepost} />
+            <PostDetail
+              key={onepost._id}
+              {...onepost}
+              refreshPost={getDetails}
+            />
           ))}
 
         {/* Show/Hide comment form */}
