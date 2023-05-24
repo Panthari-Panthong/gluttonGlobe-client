@@ -65,7 +65,15 @@ function App() {
             </IsPrivate>
           }
         />
-        <Route path="/myMap" element={<MyMapPage />} />
+
+        <Route
+          path="/myMap"
+          element={
+            <IsPrivate>
+              <MyMapPage />
+            </IsPrivate>
+          }
+        />
 
         <Route path="/places/:id" element={<PlaceDetailPage />} />
 
