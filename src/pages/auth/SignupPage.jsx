@@ -6,7 +6,7 @@ const SignupPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const SignupPage = () => {
         navigate("/login");
       }
     } catch (error) {
-      if (!error) {
+      if (error) {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       }
