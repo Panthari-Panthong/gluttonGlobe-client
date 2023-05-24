@@ -34,29 +34,31 @@ Geo Location: (leaflet api)
 
 # Client / Frontend
 
-## Routes
+## React Router Routes (React App)
 
-- / - Homepage
-- /signup - Signup form
-- /login - Login form
-- /profile - Profile Page
-- /profile/:userId/edit - Profile Edit Page
-- /myMap - My Map Page
-- /places/:id - Place Detail Page
-- 404 - Error Page
+| Path                    | Component                      | Permissions             | Behavior                                                    |
+| ----------------------- | ------------------------------ | ----------------------- | ----------------------------------------------------------- |
+| `/`                     | Homepage                       | public `<Route>`        | Home page                                                   |
+| `/signup`               | SignupPage                     | anon only `<IsAnon>`    | Signup form, link to login, navigate to login after signup  |
+| `/login`                | LoginPage                      | anon only `<IsAnon>`    | Login form, link to signup, navigate to profile after login |
+| `/profile`              | NavBar, ElementList, FooterBar | user only `<IsPrivate>` | Profile Page                                                |
+| `/profile/:userId/edit` | NavBar, ElementList, FooterBar | user only `<IsPrivate>` | Show user detail and edit form page                         |
+| `/myMap`                | NavBar, ElementList, FooterBar | user only `<IsPrivate>` | My Map Page                                                 |
+| `/places/:id`           | NavBar, ElementList, FooterBar | public `<Route>`        | Place Detail Page                                           |
+| `/*`                    | NavBar, ElementList, FooterBar | public `<Route>`        | Error Page                                                  |
 
 ## Pages
 
-- Home Page (public)
-- Sign in Page (anon only)
-- Log in Page (user only)
-- My Profile Page (user only)
-- Profile Edit Page (user only)
-- My Map Page (user only)
-- Place Detail Page (public)
-- Place Edit Page (user only)
-- Post Detail Page (public)
-- 404 Page (public)
+- Home Page
+- Sign in Page
+- Log in Page
+- My Profile Page
+- Profile Edit Page
+- My Map Page
+- Place Detail Page
+- Place Edit Page
+- Post Detail Page
+- 404 Page
 
 ## Components
 
