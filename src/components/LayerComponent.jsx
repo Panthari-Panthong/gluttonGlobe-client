@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 import { icon } from "leaflet";
 import { v4 as uuidv4 } from "uuid"; // for test
@@ -10,6 +11,7 @@ const LayerComponent = ({
   handleAddVisit,
   handleUpdateBeen,
   handleUpdateVisit,
+  // handleRemovePlace,
 }) => {
   return (
     <div>
@@ -41,6 +43,14 @@ const LayerComponent = ({
                 >
                   Want to visit
                 </button>
+                {/* <button
+                  onClick={() => {
+                    handleRemovePlace(place);
+                  }}
+                >
+                  Remove from my list
+                </button> */}
+                <Link to={`/places/${place._id}`}>Detail</Link>
               </Popup>
             </Marker>
           );
