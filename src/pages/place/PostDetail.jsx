@@ -11,7 +11,7 @@ const PostDetail = ({ refreshPost, ...onepost }) => {
   const [foundUser, setFoundUser] = useState(null);
   const { user } = useContext(AuthContext);
 
-  console.log(onepost);
+  console.log(user);
 
   const getUser = async () => {
     try {
@@ -51,14 +51,10 @@ const PostDetail = ({ refreshPost, ...onepost }) => {
             ></img>
             <p>{foundUser.data.username}</p>
           </div>
-
           <p>{onepost.comment}</p>
-          {onepost.user == user._id ? (
+          {user && onepost.user == user._id && (
             <Button onClick={() => onDelete(onepost._id)}>Remove</Button>
-          ) : (
-            <p>Nothing</p>
           )}
-          {/* <Button onClick={() => onDelete(onepost._id)}>Remove</Button> */}
         </div>
       )}
     </div>
