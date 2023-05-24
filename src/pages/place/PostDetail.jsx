@@ -1,11 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import Button from "react-bootstrap/esm/Button";
 import Spinner from "react-bootstrap/esm/Spinner";
 import Image from "react-bootstrap/Image";
+import { AuthContext } from "../../context/AuthContext";
 
-const PostDetail = ({ ...onepost }) => {
+// eslint-disable-next-line react/prop-types
+const PostDetail = ({ refreshPost, ...onepost }) => {
   // Get information from the user who posted (username and profile pic)
   const [foundUser, setFoundUser] = useState(null);
+  const { user } = useContext(AuthContext);
+
+  console.log(user);
 
   const getUser = async () => {
     try {
@@ -21,6 +27,12 @@ const PostDetail = ({ ...onepost }) => {
   useEffect(() => {
     getUser();
   }, []);
+
+  // Delete the comment
+  const onDelete = (postId) => {
+    axios.delete(`${import.meta.env.VITE_API_URL}/api/posts/${postId}`);
+    refreshPost();
+  };
 
   return (
     <div>
@@ -39,8 +51,10 @@ const PostDetail = ({ ...onepost }) => {
             ></img>
             <p>{foundUser.data.username}</p>
           </div>
-
           <p>{onepost.comment}</p>
+          {user && onepost.user == user._id && (
+            <Button onClick={() => onDelete(onepost._id)}>Remove</Button>
+          )}
         </div>
       )}
     </div>
