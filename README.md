@@ -156,6 +156,7 @@ Post model
 | PUT         | `/api/mymap/updateVisit/:userId` | { newPlacesVisit }            | 200            |              | update placesVisit of the user                                                                                                  |
 | GET         | `/api/places/:id`                |                               | 200            |              | Show city with posts                                                                                                            |
 | POST        | `/api/posts`                     | { comment }                   |                |              | Add post to the city                                                                                                            |
+| DELETE      | `/api/posts`                     |                               | 200            |              | Delete post from the city                                                                                                       |
 | GET         | `/api/users/:id`                 |                               |                |              | Show users picture, username, comment                                                                                           |
 
 ## Links
