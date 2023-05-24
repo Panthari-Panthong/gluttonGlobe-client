@@ -12,6 +12,10 @@ import axios from "axios";
 import LayerComponent from "/src/components/LayerComponent";
 import LocationMarker from "/src/components/LocationMarker";
 import L, { icon } from "leaflet";
+import pinGreen from "../../assets/pin-con/pin-green.png";
+import pinBlue from "../../assets/pin-con/pin-blue.png";
+import pinRed from "../../assets/pin-con/pin-red.png";
+import pinYellow from "../../assets/pin-con/pin-yellow.png";
 
 const MyMapPage = () => {
   /* --- Store data --- */
@@ -32,19 +36,19 @@ const MyMapPage = () => {
   });
 
   const greenIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-green.png",
+    iconUrl: pinGreen,
   });
 
   const blueIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-blue.png",
+    iconUrl: pinBlue,
   });
 
   const yellowIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-yellow.png",
+    iconUrl: pinYellow,
   });
 
   const redIcon = new LeafIcon({
-    iconUrl: "/src/assets/pin-con/pin-red.png",
+    iconUrl: pinRed,
   });
 
   /* --- Fetch data of all places --- */
