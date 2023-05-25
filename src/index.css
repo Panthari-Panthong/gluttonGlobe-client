@@ -585,3 +585,9 @@ a {
   border-radius: 50%;
   margin: 5%;
 }
+
+.login__field input,
+select,
+textarea {
+  color: #c9ada7;
+}
