@@ -2,7 +2,7 @@
 
 ## Description
 
-An interactive world map showcasing popular cities, allowing users to mark cities they have been to or want to visit, while also discovering and recommending posts from users worldwide.
+An interactive world map showcasing popular cities, allowing users to mark cities they have been to or want to visit, while also discovering recommendations from users worldwide.
 
 ## User Stories
 
@@ -178,4 +178,4 @@ The url to your repository and to your deployed project
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link](https://www.canva.com/design/DAFj7D_YvB0/Ea73SuRaH-sZl--AHxboww/view?utm_content=DAFj7D_YvB0&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink)
