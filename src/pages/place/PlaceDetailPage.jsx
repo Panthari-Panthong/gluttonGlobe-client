@@ -6,6 +6,7 @@ import PlaceEditPage from "./PlaceEditPage";
 import { AuthContext } from "../../context/AuthContext";
 import PostDetail from "./PostDetail";
 import Spinner from "react-bootstrap/esm/Spinner";
+import Card from "react-bootstrap/Card";
 import L from "leaflet";
 
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -55,45 +56,39 @@ const PlaceDetailPage = () => {
 
   return (
     <div className="placeDetail">
-      <div>
-        <div>
-          <img
-            src={`https://flagpedia.net/data/flags/icon/72x54/${cityDetails.iso2.toLowerCase()}.png`}
-          />
-        </div>
-        <div>
-          <h1>{cityDetails.city}</h1>
-          <h2>{cityDetails.country}</h2>
-        </div>
-
-        <MapContainer
-          center={[cityDetails.lat, cityDetails.lng]}
-          zoom={13}
-          scrollWheelZoom={false}
-          style={{ width: "15rem", height: "10rem" }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker
-            position={[cityDetails.lat, cityDetails.lng]}
-            icon={DefaultIcon}
-          ></Marker>
-        </MapContainer>
-      </div>
+      <Card>
+        <Card.Body className="placeDetail-card">
+          <div className="placeDetail-country">
+            <img
+              src={`https://flagpedia.net/data/flags/icon/72x54/${cityDetails.iso2.toLowerCase()}.png`}
+            />
+            <h2>{cityDetails.country}</h2>
+          </div>
+          <div>
+            <h1 className="placeDetail-city">{cityDetails.city}</h1>
+          </div>
+          <div>
+            <MapContainer
+              center={[cityDetails.lat, cityDetails.lng]}
+              zoom={13}
+              scrollWheelZoom={false}
+              style={{ width: "15rem", height: "10rem" }}
+            >
+              <TileLayer
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              <Marker
+                position={[cityDetails.lat, cityDetails.lng]}
+                icon={DefaultIcon}
+              ></Marker>
+            </MapContainer>
+          </div>
+        </Card.Body>
+      </Card>
 
       <div>
         <h2>Comments</h2>
-        {/* Display all comments */}
-        {cityDetails &&
-          cityDetails.post.map((onepost) => (
-            <PostDetail
-              key={onepost._id}
-              {...onepost}
-              refreshPost={getDetails}
-            />
-          ))}
 
         {/* Show/Hide comment form */}
         {!isLoggedIn ? (
@@ -103,7 +98,7 @@ const PlaceDetailPage = () => {
             <button
               className="btn btn-outline-dark"
               data-mdb-ripple-color="dark"
-              style={{ zIndex: "1" }}
+              style={{ zIndex: "1", margin: "3px" }}
               onClick={() => {
                 toggle();
               }}
@@ -115,6 +110,15 @@ const PlaceDetailPage = () => {
             )}
           </div>
         )}
+        {/* Display all comments */}
+        {cityDetails &&
+          cityDetails.post.map((onepost) => (
+            <PostDetail
+              key={onepost._id}
+              {...onepost}
+              refreshPost={getDetails}
+            />
+          ))}
       </div>
     </div>
   );
