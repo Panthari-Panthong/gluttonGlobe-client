@@ -13,7 +13,7 @@ import LayerComponent from "/src/components/LayerComponent";
 import LocationMarker from "/src/components/LocationMarker";
 import L, { icon } from "leaflet";
 import pinGreen from "../../assets/pin-con/pin-green.png";
-import pinBlue from "../../assets/pin-con/pin-blue.png";
+import pinPurple from "../../assets/pin-con/pin-purple.png";
 import pinRed from "../../assets/pin-con/pin-red.png";
 import pinYellow from "../../assets/pin-con/pin-yellow.png";
 
@@ -29,7 +29,7 @@ const MyMapPage = () => {
   /* --- Create the Icons --- */
   const LeafIcon = L.Icon.extend({
     options: {
-      iconSize: [40, 40],
+      iconSize: [30, 30],
       shadowSize: [100, 100],
       shadowAnchor: [14, 62],
     },
@@ -39,8 +39,8 @@ const MyMapPage = () => {
     iconUrl: pinGreen,
   });
 
-  const blueIcon = new LeafIcon({
-    iconUrl: pinBlue,
+  const purpleIcon = new LeafIcon({
+    iconUrl: pinPurple,
   });
 
   const yellowIcon = new LeafIcon({
@@ -211,12 +211,13 @@ const MyMapPage = () => {
   }, []);
 
   return (
-    <div>
+    <div className="myMapPage">
       <MapContainer
         center={[51.505, -0.09]}
         zoom={10}
         scrollWheelZoom={false}
         className="leaflet-container"
+        style={{ width: "100%", height: "80vh" }}
       >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -259,7 +260,7 @@ const MyMapPage = () => {
             <LayerGroup>
               <LayerComponent
                 places={allPlaces}
-                icon={blueIcon}
+                icon={purpleIcon}
                 handleAddBeen={handleAddBeen}
                 handleAddVisit={handleAddVisit}
                 handleUpdateBeen={handleUpdateBeen}

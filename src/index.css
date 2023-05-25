@@ -1,18 +1,20 @@
 body {
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #4a4e69;
   color: #f2e9e4;
   margin: 0;
   padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
 }
 
-#root {
+/* #root {
   height: 100%;
   width: 100%;
-}
+} */
 
 .App {
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,12 +27,19 @@ a {
 
 /* Navbar */
 .navbarComponent {
-  height: 10vh;
+  height: 7vh;
   width: 100%;
+  position: sticky;
+  top: 0;
 }
 
 .navbarBrand {
   color: #9a8c98;
+  font-size: 1.5rem;
+}
+
+.navbarBrand:focus {
+  color: #f2e9e4;
 }
 
 .container-fluid button {
@@ -40,6 +49,10 @@ a {
 
 .navbarOffcanvas {
   background-color: #9a8c98;
+}
+
+.offcanvas {
+  --bs-offcanvas-width: 100vw;
 }
 
 /* Login Page */
@@ -243,21 +256,49 @@ a {
 
 /* Home Page */
 .homePage {
-  box-shadow: 0px 0px 24px #9a8c98;
-  /* position: absolute;
-  top: 0;
-  left: 0; */
-  height: 75vh;
-  width: 90vw;
-  border-radius: 25%;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.homepageHeader {
+  height: 93vh;
+  width: 100vw;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.homepageHeader h1 {
+  font-size: 3rem;
+  font-family: "Playfair", serif;
+  font-style: italic;
+  padding: 5%;
+}
+
+.btn-scroll {
+  border: none;
+  background: transparent;
+  color: #f2e9e4;
+}
+
+#homepageMap {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7vh 0 0 0;
 }
 
 .leaflet-container {
-  position: relative;
-  left: 0;
-  border-radius: 25%;
-  margin: 0;
+  /* position: relative;
+  left: 0; */
+  margin: 5% 0 0 0;
+  box-shadow: 0px 0px 40px #9a8c98;
 }
 
 /* Place Detail Page */
@@ -286,11 +327,8 @@ a {
 }
 
 /* Footer */
-footer {
-  position: absolute;
-  bottom: 2%;
-  left: 0;
-  height: 10vh;
+.footer {
+  max-height: 10vh;
   width: 100vw;
   text-align: center;
   display: flex;
@@ -303,7 +341,7 @@ footer {
 
 .footer .row {
   width: 100%;
-  max-height: 100%;
+  height: 5vh;
   margin: 0;
   padding: 0.6% 0%;
   color: gray;
@@ -341,6 +379,16 @@ footer {
   list-style-type: none;
   width: 100%;
   color: gray;
+}
+
+
+/* myMap Page*/
+.myMapPage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Homepage */
@@ -425,3 +473,4 @@ footer {
     width: 3rem;
   }
 }
+
