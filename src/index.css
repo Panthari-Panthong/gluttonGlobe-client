@@ -59,7 +59,8 @@ a {
 
 /* Login Page */
 .loginPage,
-.signupPage {
+.signupPage,
+.editProfile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -467,4 +468,120 @@ a {
   height: 3rem;
   margin-right: 1rem;
   border-radius: 10px;
+}
+
+/* Profile */
+.profile-page .card {
+  background-color: #f7f1ed !important;
+}
+.profile {
+  width: 80vw;
+  background: linear-gradient(
+    202deg,
+    rgba(34, 34, 59, 1) 0%,
+    rgba(74, 78, 105, 1) 35%,
+    rgba(201, 173, 167, 1) 100%
+  );
+  margin-bottom: 3rem;
+  box-shadow: 0px 0px 24px #9a8c98;
+}
+
+.profile img {
+  width: 10rem;
+  height: 11rem;
+  border-radius: 50%;
+  box-shadow: 0px 0px 24px #9a8c98;
+}
+
+.profile h4 {
+  color: #22223b !important;
+}
+
+.title-styles h4 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 300;
+  color: #f7f1ed;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  grid-template-rows: 27px 0;
+  grid-gap: 20px;
+  align-items: center;
+}
+
+.title-styles h4:after,
+.title-styles h4:before {
+  content: " ";
+  display: block;
+  border-bottom: 1px solid #f2e9e4;
+  border-top: 1px solid #f2e9e4;
+  height: 5px;
+  background-color: #f7f1ed;
+}
+
+.profile-place-card {
+  width: 15rem;
+}
+
+.profile-place-card .btn-primary,
+.profile-place-card .btn-primary:active,
+.profile-place-card .btn-primary:visited {
+  background-color: #4a4e69 !important;
+}
+
+.profile-place-card .btn-primary:hover {
+  background-color: #22223b !important;
+}
+
+.profile-place-card .title {
+  color: #22223b !important;
+}
+
+@media only screen and (max-width: 916px) {
+  .profile img {
+    width: 6rem;
+    height: 6rem;
+  }
+
+  .profile-place-card {
+    width: 10rem;
+  }
+
+  .profile-place-card img {
+    width: 3rem;
+  }
+}
+
+/* Edit Profil page */
+.editProfile {
+  text-align: center;
+  color: #c9ada7;
+}
+
+.editProfile h1 {
+  padding-top: 10%;
+}
+
+.picture__label {
+  cursor: pointer;
+  font-weight: bold;
+  color: #c9ada7;
+}
+
+.picture__label:hover {
+  color: #6a679e;
+}
+
+.picture__input {
+  display: none;
+}
+
+.edit-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 5%;
 }
