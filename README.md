@@ -178,4 +178,4 @@ The url to your repository and to your deployed project
 
 The url to your presentation slides
 
-[Slides Link](http://slides.com)
+[Slides Link]([http://slides.com](https://www.canva.com/design/DAFj7D_YvB0/Ea73SuRaH-sZl--AHxboww/view?utm_content=DAFj7D_YvB0&utm_campaign=designshare&utm_medium=link&utm_source=publishsharelink))
