@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: "Source Sans Pro", sans-serif;
+  display: flex;
 }
 
 /* #root {
@@ -378,4 +379,13 @@ a {
   list-style-type: none;
   width: 100%;
   color: gray;
+}
+
+/* myMap Page*/
+.myMapPage {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
