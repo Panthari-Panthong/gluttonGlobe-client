@@ -46,7 +46,12 @@ const NavbarComponent = () => {
                     <>
                       <Nav.Link href="/profile">My profile</Nav.Link>
                       <Nav.Link href="/myMap">My Map</Nav.Link>
-                      <Button onClick={logOutUser}>Logout</Button>
+                      <Button
+                        className="button login__submit"
+                        onClick={logOutUser}
+                      >
+                        Logout
+                      </Button>
                     </>
                   )}
 
