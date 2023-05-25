@@ -5,8 +5,8 @@ import {
   TileLayer,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import "/src/App.css";
-import "/src/index.css";
+import "../../App.css";
+import "../../index.css";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
