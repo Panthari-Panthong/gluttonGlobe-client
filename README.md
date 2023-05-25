@@ -2,7 +2,7 @@
 
 ## Description
 
-An interactive world map showcasing popular cities, allowing users to mark cities they have been to or want to visit, while also discovering and recommending posts from users worldwide.
+An interactive world map showcasing popular cities, allowing users to mark cities they have been to or want to visit, while also discovering recommendations from users worldwide.
 
 ## User Stories
 
