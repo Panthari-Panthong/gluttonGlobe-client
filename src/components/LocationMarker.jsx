@@ -7,7 +7,7 @@ function LocationMarker({ position, setPosition, icon }) {
   useEffect(() => {
     map.locate().on("locationfound", function (e) {
       setPosition(e.latlng);
-      map.flyTo(e.latlng, map.getZoom(5));
+      map.flyTo(e.latlng, map.getZoom(3));
       const radius = e.accuracy;
       const circle = L.circle(e.latlng, radius);
       circle.addTo(map);

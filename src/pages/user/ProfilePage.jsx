@@ -31,7 +31,7 @@ const ProfilePage = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="profile-page">
       {!userDetail && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -40,23 +40,19 @@ const ProfilePage = () => {
       {userDetail && (
         <>
           <div>
-            <h2 className="text-center">Profile</h2>
-            <div className="container py-5 h-100">
+            <div className="container py-3 h-100 profile my-4">
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-md-12 col-xl-4">
                   <div className="card" style={{ borderRadius: "15px" }}>
                     <div className="card-body text-center">
-                      <div className="mt-3 mb-4">
-                        <img
-                          src={userDetail.picture}
-                          className="img-fluid"
-                          style={{ width: "180px", borderRadius: "10px" }}
-                        />
+                      <div className="mb-4">
+                        <img src={userDetail.picture} className="img-fluid" />
                       </div>
-                      <h4 className="mb-2">{userDetail.username}</h4>
-                      <p className="text-muted mb-4">
-                        About me : {userDetail.about}
-                      </p>
+                      <h4 className="mb-2">
+                        <b>Hello </b>
+                        {userDetail.username}
+                      </h4>
+                      <p className="text-muted mb-4">{userDetail.about}</p>
                       <Link
                         to={`/profile/${userDetail._id}/edit`}
                         className="btn btn-outline-dark"
@@ -71,46 +67,68 @@ const ProfilePage = () => {
               </div>
             </div>
           </div>
-          <hr />
-          <div className="container py-5">
-            <h4>{"Place I've been."}</h4>
-            <div className="d-flex flex-row bd-highlight mb-3 gap-2">
+
+          <div className="container py-3 profile-place">
+            <div className="title-styles">
+              <h4>{"Places I've been."}</h4>
+            </div>
+            <div className="d-flex flex-row bd-highlight mb-3 gap-3 flex-wrap justify-content-center">
               {userDetail &&
                 userDetail.placesBeen.map((place) => {
                   return (
-                    <Card style={{ width: "18rem" }} key={place._id}>
+                    <Card
+                      className="profile-place-card text-center"
+                      key={place._id}
+                    >
                       <Card.Body>
                         <img
+                          className="py-2"
                           src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
-                        <Card.Title>{place.city}</Card.Title>
+                        <Card.Title className="title">{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                           {place.country}
                         </Card.Subtitle>
-                        <Link to={`/places/${place._id}`}>Detail</Link>
+                        <Link
+                          to={`/places/${place._id}`}
+                          className="btn btn-primary btn-sm border-0"
+                        >
+                          Detail
+                        </Link>
                       </Card.Body>
                     </Card>
                   );
                 })}
             </div>
           </div>
-          <hr />
-          <div className="container py-5">
-            <h4>{"Place I want to visit"}</h4>
-            <div className="d-flex flex-row bd-highlight mb-3 gap-2">
+
+          <div className="container py-3 profile-place">
+            <div className="title-styles">
+              <h4>{"Places I want to visit"}</h4>
+            </div>
+            <div className="d-flex flex-row bd-highlight mb-3 gap-3 flex-wrap profile-place-detail justify-content-center">
               {userDetail &&
                 userDetail.placesVisit.map((place) => {
                   return (
-                    <Card style={{ width: "18rem" }} key={place._id}>
+                    <Card
+                      className="profile-place-card text-center"
+                      key={place._id}
+                    >
                       <Card.Body>
                         <img
+                          className="py-3"
                           src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
                         />
-                        <Card.Title>{place.city}</Card.Title>
+                        <Card.Title className="title">{place.city}</Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
                           {place.country}
                         </Card.Subtitle>
-                        <Link to={`/places/${place._id}`}>Detail</Link>
+                        <Link
+                          to={`/places/${place._id}`}
+                          className="btn btn-primary btn-sm border-0"
+                        >
+                          Detail
+                        </Link>
                       </Card.Body>
                     </Card>
                   );

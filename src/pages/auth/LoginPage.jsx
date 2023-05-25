@@ -9,7 +9,7 @@ import { faLock, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(undefined);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const LoginPage = () => {
         navigate("/profile");
       }
     } catch (error) {
-      if (!error) {
+      if (error) {
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       }
@@ -65,7 +65,6 @@ const LoginPage = () => {
                 placeholder="Email"
               />
             </div>
-
             <div className="login__field">
               <FontAwesomeIcon icon={faLock} className="login_icon" />
               <input
