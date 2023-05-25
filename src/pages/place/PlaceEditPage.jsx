@@ -24,19 +24,23 @@ const PlaceEditPage = ({ refreshPost, placeId }) => {
   };
 
   return (
-    <div>
+    <div className="comment-container">
       <form onSubmit={createPost}>
         <label>
           <input
             type="text"
             name="comment"
             value={comment}
+            className="comment-input"
+            placeholder="What do you think...?"
             onChange={(e) => {
               setComment(e.target.value);
             }}
           ></input>
         </label>
-        <button type="submit">Add</button>
+        <button className="comment-btn" type="submit" style={{ width: "50px" }}>
+          Add
+        </button>
       </form>
     </div>
   );
