@@ -1,8 +1,10 @@
 /* eslint-disable react/prop-types */
+import { v4 as uuidv4 } from "uuid"; // for test
 import { Link } from "react-router-dom";
 import { Marker, Popup } from "react-leaflet";
 import { icon } from "leaflet";
-import { v4 as uuidv4 } from "uuid"; // for test
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
 const LayerComponent = ({
   places,
@@ -26,31 +28,54 @@ const LayerComponent = ({
               key={uuidv4()}
             >
               <Popup autoClose={false}>
-                <h3>{place.city}</h3>
-                <button
-                  onClick={() => {
-                    handleAddBeen(place);
-                    handleUpdateVisit(place);
-                  }}
+                <Card
+                  style={{ width: "12rem" }}
+                  className="pt-4 card text-center"
                 >
-                  Been there
-                </button>
-                <button
-                  onClick={() => {
-                    handleAddVisit(place);
-                    handleUpdateBeen(place);
-                  }}
-                >
-                  Want to visit
-                </button>
-                {/* <button
+                  <Card.Img
+                    className="mx-auto d-block"
+                    variant="top"
+                    style={{ width: "3rem" }}
+                    src={`https://flagpedia.net/data/flags/icon/72x54/${place.iso2.toLowerCase()}.png`}
+                  />
+                  <Card.Title>{place.city}</Card.Title>
+                  <Card.Text>{place.country}</Card.Text>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">Latitude : {place.lat}</li>
+                    <li className="list-group-item">Longitude : {place.lng}</li>
+                  </ul>
+                  <Button
+                    variant="outline-danger"
+                    onClick={() => {
+                      handleAddBeen(place);
+                      handleUpdateVisit(place);
+                    }}
+                  >
+                    Been there
+                  </Button>
+                  <Button
+                    variant="outline-warning"
+                    onClick={() => {
+                      handleAddVisit(place);
+                      handleUpdateBeen(place);
+                    }}
+                  >
+                    Want to visit
+                  </Button>
+                  {/* <button
                   onClick={() => {
                     handleRemovePlace(place);
                   }}
                 >
                   Remove from my list
                 </button> */}
-                <Link to={`/places/${place._id}`}>Detail</Link>
+                  <Link
+                    className="btn btn-outline-info btn-sm"
+                    to={`/places/${place._id}`}
+                  >
+                    Detail
+                  </Link>
+                </Card>
               </Popup>
             </Marker>
           );
