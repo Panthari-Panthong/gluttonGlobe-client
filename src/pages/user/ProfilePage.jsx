@@ -70,7 +70,7 @@ const ProfilePage = () => {
 
           <div className="container py-3 profile-place">
             <div className="title-styles">
-              <h4>{"Places I've been."}</h4>
+              <h4>{"Places I've been"}</h4>
             </div>
             <div className="d-flex flex-row bd-highlight mb-3 gap-3 flex-wrap justify-content-center">
               {userDetail &&

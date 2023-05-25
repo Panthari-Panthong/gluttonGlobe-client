@@ -322,7 +322,11 @@ a {
   flex-direction: row;
   align-items: flex-start;
   gap: 5%;
-  margin-left: 5%;
+  /* margin-left: 5%; */
+}
+
+.postDetail-container {
+  width: 100%;
 }
 
 .postDetail img {
@@ -335,6 +339,10 @@ a {
 .postText-container {
   width: 100%;
   height: 100%;
+}
+
+.postText-container p {
+  text-align: left;
 }
 
 /* Footer */
@@ -540,6 +548,12 @@ a {
   color: #22223b !important;
 }
 
+.btn-outline-dark {
+  background-color: #4a4e69 !important;
+  color: #fff;
+  border: none;
+}
+
 @media only screen and (max-width: 916px) {
   .profile img {
     width: 6rem;
@@ -584,4 +598,10 @@ a {
   height: 90px;
   border-radius: 50%;
   margin: 5%;
+}
+
+.login__field input,
+select,
+textarea {
+  color: #c9ada7;
 }
