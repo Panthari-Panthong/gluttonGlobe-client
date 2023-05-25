@@ -31,7 +31,7 @@ const ProfilePage = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="profile-page">
       {!userDetail && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -40,22 +40,19 @@ const ProfilePage = () => {
       {userDetail && (
         <>
           <div>
-            <h2 className="text-center">Profile</h2>
-            <div className="container py-3 h-100 profile">
+            <div className="container py-3 h-100 profile my-4">
               <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-md-12 col-xl-4">
                   <div className="card" style={{ borderRadius: "15px" }}>
                     <div className="card-body text-center">
-                      <div className="mt-3 mb-4">
+                      <div className="mb-4">
                         <img src={userDetail.picture} className="img-fluid" />
                       </div>
                       <h4 className="mb-2">
                         <b>Hello </b>
                         {userDetail.username}
                       </h4>
-                      <p className="text-muted mb-4">
-                        <b>About me :</b> {userDetail.about}
-                      </p>
+                      <p className="text-muted mb-4">{userDetail.about}</p>
                       <Link
                         to={`/profile/${userDetail._id}/edit`}
                         className="btn btn-outline-dark"
