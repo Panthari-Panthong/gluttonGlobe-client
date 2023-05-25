@@ -76,28 +76,55 @@ const ProfileEditPage = () => {
   };
 
   return (
-    <div>
-      <h1>Edit Profile</h1>
-      <form onSubmit={handleFormSubmit}>
-        <label>Picture : </label>
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <label>Username:</label>
-        <input
-          type="text"
-          name="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
+    <div className="editProfile">
+      <div className="screen">
+        <div className="screen__content">
+          <h1>Edit My Profile</h1>
+          <form onSubmit={handleFormSubmit} className="login">
+            <div className="login__field">
+              <img src={picture} className="edit-img" />
+              <label htmlFor="file" className="picture__label">
+                Modify My Profile Picture{" "}
+              </label>
+              <br></br>
 
-        <label>About:</label>
-        <textarea
-          name="about"
-          value={about}
-          onChange={(e) => setAbout(e.target.value)}
-        />
-
-        <button type="submit">Save</button>
-      </form>
+              <input
+                type="file"
+                onChange={(e) => handleFileUpload(e)}
+                className="login__input picture__input"
+                id="file"
+              />
+            </div>
+            <div className="login__field">
+              <label>Change My Username</label>
+              <input
+                type="text"
+                name="username"
+                onChange={(e) => setUsername(e.target.value)}
+                className="login__input"
+              />
+            </div>
+            <div className="login__field">
+              <label>About Me</label>
+              <br></br>
+              <textarea
+                name="about"
+                onChange={(e) => setAbout(e.target.value)}
+                className="login__input"
+              />
+            </div>
+            <button type="submit" className="button login__submit">
+              Save
+            </button>
+          </form>
+        </div>
+        <div className="screen__background">
+          <span className="screen__background__shape screen__background__shape4"></span>
+          <span className="screen__background__shape screen__background__shape3"></span>
+          <span className="screen__background__shape screen__background__shape2"></span>
+          <span className="screen__background__shape screen__background__shape1"></span>
+        </div>
+      </div>
     </div>
   );
 };

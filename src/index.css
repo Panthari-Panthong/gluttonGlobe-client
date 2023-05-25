@@ -56,7 +56,8 @@ a {
 
 /* Login Page */
 .loginPage,
-.signupPage {
+.signupPage,
+.editProfile {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -325,6 +326,66 @@ a {
   border-radius: 50%;
 }
 
+.placeEditPage {
+  color: #c9ada7;
+}
+
+.placeEditPage form {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.placeeditfield textarea,
+input {
+  color: #c9ada7;
+}
+
+.placeeditinput {
+  border: none;
+  border-bottom: 2px solid #d1d1d4;
+  background: none;
+  padding: 10px;
+  padding-left: 24px;
+  font-weight: 700;
+  width: 75%;
+  transition: 0.2s;
+}
+
+.placeeditinput:active,
+.placeeditinput:focus,
+.placeeditinput:hover {
+  outline: none;
+  border-bottom-color: #c9ada7;
+}
+
+.addcommentbtn {
+  background: #fff;
+  font-size: 14px;
+  padding: 15% 80%;
+  margin: 0;
+  border-radius: 26px;
+  border: 1px solid #d4d3e8;
+  text-transform: uppercase;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #4c489d;
+  box-shadow: 0px 2px 2px #5c5696;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.addcommentbtn:active,
+.addcommentbtn:focus,
+.addcommentbtn:hover {
+  border-color: #6a679e;
+  outline: none;
+}
+
 /* Footer */
 .footer {
   max-height: 10vh;
@@ -378,4 +439,35 @@ a {
   list-style-type: none;
   width: 100%;
   color: gray;
+}
+
+/* Edit Profil page */
+.editProfile {
+  text-align: center;
+  color: #c9ada7;
+}
+
+.editProfile h1 {
+  padding-top: 10%;
+}
+
+.picture__label {
+  cursor: pointer;
+  font-weight: bold;
+  color: #c9ada7;
+}
+
+.picture__label:hover {
+  color: #6a679e;
+}
+
+.picture__input {
+  display: none;
+}
+
+.edit-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 5%;
 }
