@@ -381,7 +381,6 @@ a {
   color: gray;
 }
 
-
 /* myMap Page*/
 .myMapPage {
   height: 100%;
@@ -391,9 +390,8 @@ a {
   align-items: center;
 }
 
-/* Homepage */
 /* Profile */
-.card {
+.profile-page .card {
   background-color: #f7f1ed !important;
 }
 .profile {
@@ -405,11 +403,14 @@ a {
     rgba(201, 173, 167, 1) 100%
   );
   margin-bottom: 3rem;
+  box-shadow: 0px 0px 24px #9a8c98;
 }
 
 .profile img {
   width: 10rem;
+  height: 11rem;
   border-radius: 50%;
+  box-shadow: 0px 0px 24px #9a8c98;
 }
 
 .profile h4 {
@@ -461,8 +462,8 @@ a {
 
 @media only screen and (max-width: 916px) {
   .profile img {
-    width: 5rem;
-    height: 7rem;
+    width: 6rem;
+    height: 6rem;
   }
 
   .profile-place-card {
@@ -474,3 +475,33 @@ a {
   }
 }
 
+/* Edit Profil page */
+.editProfile {
+  text-align: center;
+  color: #c9ada7;
+}
+
+.editProfile h1 {
+  padding-top: 10%;
+}
+
+.picture__label {
+  cursor: pointer;
+  font-weight: bold;
+  color: #c9ada7;
+}
+
+.picture__label:hover {
+  color: #6a679e;
+}
+
+.picture__input {
+  display: none;
+}
+
+.edit-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  margin: 5%;
+}
