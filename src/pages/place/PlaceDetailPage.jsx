@@ -92,7 +92,9 @@ const PlaceDetailPage = () => {
 
         {/* Show/Hide comment form */}
         {!isLoggedIn ? (
-          <Link to="/login">Log in now to add a comment</Link>
+          <Link style={{ textDecoration: "underline" }} to="/login">
+            Log in now to add a comment
+          </Link>
         ) : (
           <div className="extend-comment">
             <button
