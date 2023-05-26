@@ -72,7 +72,7 @@ const PlaceDetailPage = () => {
               center={[cityDetails.lat, cityDetails.lng]}
               zoom={13}
               scrollWheelZoom={false}
-              style={{ width: "15rem", height: "10rem" }}
+              style={{ width: "15rem", height: "10rem", zIndex: "0" }}
             >
               <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
