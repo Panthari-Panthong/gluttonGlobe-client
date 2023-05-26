@@ -34,7 +34,7 @@ const PostDetail = ({ refreshPost, ...onepost }) => {
   };
 
   return (
-    <Card style={{ width: "80vw", marginBottom: "5px" }}>
+    <Card style={{ width: "80vw", margin: "1rem 0" }}>
       <Card.Body className="card-body-comments">
         <div className="postDetail-container">
           {!foundUser ? (
@@ -53,7 +53,10 @@ const PostDetail = ({ refreshPost, ...onepost }) => {
                   ></img>
                   <p style={{ color: "#5c5696" }}>{foundUser.data.username}</p>
                   {user && onepost.user == user._id && (
-                    <Button onClick={() => onDelete(onepost._id)}>
+                    <Button
+                      className="remove-comment-btn"
+                      onClick={() => onDelete(onepost._id)}
+                    >
                       Remove
                     </Button>
                   )}

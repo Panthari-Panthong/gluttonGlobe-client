@@ -229,7 +229,7 @@ const MyMapPage = () => {
           setPosition={setPosition}
         />
         <LayersControl position="topright" collapsed={false}>
-          <LayersControl.Overlay name={"Places have been"}>
+          <LayersControl.Overlay name={"Places I have been"}>
             <LayerGroup>
               <LayerComponent
                 places={userPlacesBeen}
@@ -243,7 +243,7 @@ const MyMapPage = () => {
             </LayerGroup>
           </LayersControl.Overlay>
 
-          <LayersControl.Overlay name={"Places want to go"}>
+          <LayersControl.Overlay name={"Places I want to visit"}>
             <LayerGroup>
               <LayerComponent
                 places={userPlacesVisit}

@@ -51,7 +51,7 @@ const LayerComponent = ({
                       handleUpdateVisit(place);
                     }}
                   >
-                    Been there
+                    I have been there
                   </Button>
                   <Button
                     variant="outline-warning"
@@ -60,7 +60,7 @@ const LayerComponent = ({
                       handleUpdateBeen(place);
                     }}
                   >
-                    Want to visit
+                    I want to visit there
                   </Button>
                   {/* <button
                   onClick={() => {
