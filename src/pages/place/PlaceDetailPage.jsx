@@ -87,16 +87,16 @@ const PlaceDetailPage = () => {
         </Card.Body>
       </Card>
 
-      <div>
-        <h2>Comments</h2>
+      <div className="comments-outer-container">
+        <h2>COMMENTS</h2>
 
         {/* Show/Hide comment form */}
         {!isLoggedIn ? (
           <Link to="/login">Log in now to add a comment</Link>
         ) : (
-          <div>
+          <div className="extend-comment">
             <button
-              className="btn btn-outline-dark"
+              className="extend-comment-input-btn"
               data-mdb-ripple-color="dark"
               style={{ zIndex: "1", margin: "3px" }}
               onClick={() => {
